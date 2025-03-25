@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h1>Welcome, {{ user.username }}!</h1>
+
+<h2>Incomplete Tasks</h2>
+<ul class="list-group">
+    {% for task in incomplete_tasks %}
+        <li class="list-group-item d-flex justify-content-between align-items-center">
+            {{ task.title }} - {{ task.description }}
+            <div>
+                <a href="{% url 'toggle_task' task.id %}" class="btn btn-sm btn-success">Mark Complete</a>
+                <a href="{% url 'delete_task' task.id %}" class="btn btn-sm btn-danger">Delete</a>
+            </div>
+        </li>
+    {% endfor %}
+</ul>
+
+<h2 class="mt-4">Completed Tasks</h2>
+<ul class="list-group">
+    {% for task in completed_tasks %}
+        <li class="list-group-item d-flex justify-content-between align-items-center">
+            {{ task.title }} - {{ task.description }}
+            <div>
+                <a href="{% url 'toggle_task' task.id %}" class="btn btn-sm btn-secondary">Mark Incomplete</a>
+                <a href="{% url 'delete_task' task.id %}" class="btn btn-sm btn-danger">Delete</a>
+            </div>
+        </li>
+    {% endfor %}
+</ul>
+
+<a href="{% url 'create_task' %}" class="btn btn-primary mt-4">Create New Task</a>
+{% endblock %}
